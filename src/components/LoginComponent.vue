@@ -1,6 +1,6 @@
 <template>
   <div class="login-container">
-    <h1>Bievenue sur le planificateur de soutenances de Lyon 1.</h1>
+    <h1>Bienvenue sur le planificateur de soutenances de Lyon 1.</h1>
     <form @submit.prevent="handleLogin">
       <div class="form-group">
         <label for="username">Nom d'utilisateur:</label>
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import router from '../router.js'
 import apiService from '/services/apiService';
 
 export default {
@@ -38,11 +39,12 @@ export default {
           password: this.password,
         });
 
-        // La réponse du backend est accessible dans response.data
         console.log(response.data);
 
-        // Réinitialiser le message d'erreur en cas de connexion réussie
         this.errorMessage = '';
+        
+        router.replace('/admin');
+
       } catch (error) {
         // Gérer les erreurs d'authentification
         console.error('Erreur lors de la connexion', error);

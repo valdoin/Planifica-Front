@@ -1,17 +1,26 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo2.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <img :class="{ 'small-logo': isAdminPage }" alt="Vue logo" src="./assets/logo2.png">
+
+    <!-- Utilisation dynamique des composants en fonction de l'état d'authentification -->
+    <router-view />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/LoginComponent.vue'
-
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  data() {
+    return {
+      isAdminPage: false,
+    };
+  },
+  watch: {
+    $route(to) {
+      this.isAdminPage = to.name === 'admin';
+    },
+  },
+};
 </script>
 
 <style>
@@ -21,7 +30,12 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-img{
+
+img {
   width: 420px;
+}
+
+.small-logo {
+  width: 200px; /* Ajustez la taille selon vos besoins */
 }
 </style>
