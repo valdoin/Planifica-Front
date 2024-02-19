@@ -3,13 +3,11 @@
     <h1>Bienvenue sur le planificateur de soutenances de Lyon 1.</h1>
     <form @submit.prevent="handleLogin">
       <div class="form-group">
-        <label for="username">Nom d'utilisateur:</label>
-        <input type="text" v-model="username" required>
+        <input type="text" v-model="username" placeholder="Nom d'utilisateur" required>
       </div>
 
       <div class="form-group">
-        <label for="password">Mot de passe:</label>
-        <input type="password" v-model="password" required>
+        <input type="password" v-model="password" placeholder= "Mot de passe" required>
       </div>
 
       <button type="submit" class="login-button">Connexion</button>
@@ -72,10 +70,6 @@ form {
   margin-bottom: 20px;
 }
 
-label {
-  display: block;
-  margin-bottom: 5px;
-}
 
 input {
   width: 100%;

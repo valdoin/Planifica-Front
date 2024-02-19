@@ -3,62 +3,53 @@
     <nav>
       <ul class="category-list">
         <li @click="selectCategory('Agenda')" :class="{ 'selected-category': selectedCategory === 'Agenda' }">Agenda</li>
-        <li @click="selectCategory('Soutenances')" :class="{ 'selected-category': selectedCategory === 'Soutenances' }">Soutenances</li>
-        <li @click="selectCategory('Enseignants')" :class="{ 'selected-category': selectedCategory === 'Enseignants' }">Enseignants</li>
-        <li @click="selectCategory('Etudiants')" :class="{ 'selected-category': selectedCategory === 'Etudiants' }">Etudiants</li>
+        <li @click="selectCategory('Soutenances')" :class="{ 'selected-category': selectedCategory === 'Soutenances' }">
+          Soutenances</li>
+        <li @click="selectCategory('Enseignants')" :class="{ 'selected-category': selectedCategory === 'Enseignants' }">
+          Enseignants</li>
+        <li @click="selectCategory('Etudiants')" :class="{ 'selected-category': selectedCategory === 'Etudiants' }">
+          Etudiants</li>
       </ul>
     </nav>
 
-    <qalendar v-if="selectedCategory === 'Agenda'" :events="events" :config="config" />
+    <CalendarView v-if="selectedCategory === 'Agenda'" :events="eventsData" :config="configData" />
+    <EnseignantsView v-if="selectedCategory === 'Enseignants'"/>
+    
   </div>
 </template>
 
 <script>
-import {Qalendar} from 'qalendar';
-import 'qalendar/dist/style.css';
+import CalendarView from '@/views/CalendarView.vue';
+import EnseignantsView from '@/views/EnseignantsView.vue';
+
 
 export default {
   components: {
-    Qalendar,
+    CalendarView,
+    EnseignantsView
   },
   data() {
     return {
       selectedCategory: 'Agenda',
-      events: [
-        {
-          title: 'Événement 1',
-          time: { start: "2022-05-16 12:05", end: "2022-05-16 13:35" },
-        },
-        {
-          title: 'Événement 2',
-          time: { start: "2022-05-10", end: "2022-05-22" },
-        },
-        
-      ],
-      config: {
-        week : {
-        startsOn: 'sunday',
-        nDays:5,
-        },
-        dayBoundaries: {
-          start :8,
-          end:18
-        },
-        dayIntervals: {
-          length:60
-        }
-      }
     };
   },
   methods: {
     selectCategory(category) {
       this.selectedCategory = category;
     },
-    logout() {
-      // Méthode de déconnexion
+    selectedCategoryComponent() {
+      switch (this.selectedCategory) {
+        case 'Agenda':
+          return 'calendar-view';
+        case 'Enseignants':
+          return 'enseignants-view';
+        default:
+          return null;
+      }
     },
   },
 };
+
 </script>
 
 <style>
@@ -67,15 +58,15 @@ h1 {
 }
 
 .day-timeline__hour-text {
- text-align: left !important;
+  text-align: left !important;
 }
 
 .category-list {
   list-style: none;
   padding: 0;
   display: flex;
-  justify-content: center; 
-  align-items: center; 
+  justify-content: center;
+  align-items: center;
   background-color: #f4f4f4;
 }
 

@@ -1,8 +1,6 @@
 <template>
   <div id="app">
     <img :class="{ 'small-logo': isAdminPage }" alt="Vue logo" src="./assets/logo2.png">
-
-    <!-- Utilisation dynamique des composants en fonction de l'état d'authentification -->
     <router-view />
   </div>
 </template>
