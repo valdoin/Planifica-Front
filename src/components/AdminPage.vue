@@ -13,20 +13,27 @@
     </nav>
 
     <CalendarView v-if="selectedCategory === 'Agenda'" :events="eventsData" :config="configData" />
-    <EnseignantsView v-if="selectedCategory === 'Enseignants'"/>
-    
+    <EnseignantsView v-if="selectedCategory === 'Enseignants'" />
+    <EtudiantsView v-if="selectedCategory === 'Etudiants'" />
+    <SoutenancesView v-if="selectedCategory === 'Soutenances'"/>
+
+
   </div>
 </template>
 
 <script>
 import CalendarView from '@/views/CalendarView.vue';
 import EnseignantsView from '@/views/EnseignantsView.vue';
+import EtudiantsView from '@/views/EtudiantsView.vue';
+import SoutenancesView from '@/views/SoutenancesView.vue';
 
 
 export default {
   components: {
     CalendarView,
-    EnseignantsView
+    EnseignantsView,
+    EtudiantsView,
+    SoutenancesView
   },
   data() {
     return {
@@ -43,6 +50,10 @@ export default {
           return 'calendar-view';
         case 'Enseignants':
           return 'enseignants-view';
+        case 'Etudiant':
+          return 'etudiants-view'
+        case 'Soutenances':
+          return 'soutenances-view'
         default:
           return null;
       }

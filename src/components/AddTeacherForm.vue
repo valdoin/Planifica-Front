@@ -2,18 +2,23 @@
   <div>
     <form @submit.prevent="submitForm">
       <div class="form-group">
-        <input type="text" v-model="localTeacherData.surname" @input="updateLocalData" required placeholder="Nom" />
+        <input type="text" v-model="teacherData.surname" required placeholder="Nom" />
       </div>
 
       <div class="form-group">
-        <input type="text" v-model="localTeacherData.name" @input="updateLocalData" required placeholder="Prénom" />
+        <input type="text" v-model="teacherData.name" required placeholder="Prénom" />
       </div>
 
       <div class="form-group">
-        <input type="email" v-model="localTeacherData.mail" @input="updateLocalData" required placeholder="E-mail" />
+        <input type="email" v-model="teacherData.mail" required placeholder="E-mail" />
       </div>
 
-      <button class="blue-button" type="submit">✓</button>
+      <div class="form-group">
+        <label for="isProgrammer">Programmeur ?</label>
+        <input type="checkbox" id="isProgrammer" v-model="teacherData.isProgrammer" />
+      </div>
+
+      <button class="blue-button" type="submit">{{ buttonText }}</button>
     </form>
   </div>
 </template>
@@ -22,22 +27,15 @@
 export default {
   data() {
     return {
-      localTeacherData: {
+      teacherData: {
         surname: '',
         name: '',
         mail: '',
+        isProgrammer: false,
       },
     };
   },
   props: {
-    teacherData: {
-      type: Object,
-      default: () => ({
-        surname: '',
-        name: '',
-        mail: '',
-      }),
-    },
     buttonText: {
       type: String,
       default: 'Ajouter',
@@ -45,23 +43,19 @@ export default {
   },
   methods: {
     submitForm() {
-      this.$emit('submit', { ...this.localTeacherData });
+      this.$emit('submit', this.teacherData);
+      console.log(this.teacherData);
       this.resetForm();
     },
     resetForm() {
-      this.localTeacherData = {
-        surname: '',
-        name: '',
-        mail: '',
-      };
+      this.teacherData = { surname: '', name: '', mail: '', isProgrammer: false };
     },
-    updateLocalData() {
-      this.localTeacherData = { ...this.localTeacherData, ...this.teacherData };
-    },
+  },
+  created() {
+    this.resetForm();
   },
 };
 </script>
-
 
 <style scoped>
 .form-group {

@@ -29,7 +29,7 @@ export default {
     return apiClient.get(`/teachers/${teacherId}/details`);
   },
   updateTeacher(teacherId, teacherData) {
-    return apiClient.patch(`/teachers/${teacherId}/update`, teacherData);
+    return apiClient.post(`/teachers/${teacherId}/update`, teacherData);
   },
   deleteTeacher(teacherId) {
     return apiClient.delete(`/teachers/${teacherId}/delete`);
@@ -46,7 +46,7 @@ export default {
     return apiClient.get(`/students/${studentId}/details`);
   },
   updateStudent(studentId, studentData) {
-    return apiClient.put(`/students/${studentId}/update`, studentData);
+    return apiClient.post(`/students/${studentId}/update`, studentData);
   },
   deleteStudent(studentId) {
     return apiClient.delete(`/students/${studentId}/delete`);
@@ -63,7 +63,7 @@ export default {
     return apiClient.get(`/defenses/${defenseId}/details`);
   },
   updateDefense(defenseId, defenseData) {
-    return apiClient.put(`/defenses/${defenseId}/update`, defenseData);
+    return apiClient.post(`/defenses/${defenseId}/update`, defenseData);
   },
   deleteDefense(defenseId) {
     return apiClient.delete(`/defenses/${defenseId}/delete`);

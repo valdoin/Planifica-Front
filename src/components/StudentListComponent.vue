@@ -1,25 +1,27 @@
 <template>
-    <div class="enseignants-list">
-        <h2>Liste des enseignants</h2>
+    <div class="students-list">
+        <h2>Liste des étudiants</h2>
         <table>
             <thead>
                 <tr>
                     <th>Nom</th>
                     <th>Prénom</th>
+                    <th>Classe</th>
                     <th>Email</th>
-                    <th>Programmeur</th>
+                    <th>Tuteur</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="teacher in teachers" :key="teacher._id">
-                    <td>{{ teacher.surname }}</td>
-                    <td>{{ teacher.name }}</td>
-                    <td>{{ teacher.mail }}</td>
-                    <td>{{ teacher.isProgrammer ? 'Oui' : 'Non' }}</td> 
+                <tr v-for="student in students" :key="student._id">
+                    <td>{{ student.surname }}</td>
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.class }}</td>
+                    <td>{{ student.mail }}</td>
+                    <td>{{ student.tutor ? `${student.tutor.name} ${student.tutor.surname}` : 'Aucun tuteur' }}</td>
                     <td>
-                        <button @click="editTeacher(teacher)" class="edit-button">Modifier</button>
-                        <button @click="deleteTeacher(teacher._id)" class="delete-button">Supprimer</button>
+                        <button @click="editStudent(student)" class="edit-button">Modifier</button>
+                        <button @click="deleteStudent(student._id)" class="delete-button">Supprimer</button>
                     </td>
                 </tr>
             </tbody>
@@ -30,24 +32,24 @@
 <script>
 export default {
     props: {
-        teachers: {
+        students: {
             type: Array,
             default: () => [],
         },
     },
     methods: {
-        deleteTeacher(teacherId) {
-            this.$emit('deleteTeacher', teacherId);
+        deleteStudent(studentId) {
+            this.$emit('deleteStudent', studentId);
         },
-        editTeacher(teacher) {
-            this.$emit('editTeacher', teacher);
+        editStudent(student) {
+            this.$emit('editStudent', student);
         },
     },
 };
 </script>
   
 <style scoped>
-.enseignants-list {
+.students-list {
     margin-top: 20px;
 }
 
