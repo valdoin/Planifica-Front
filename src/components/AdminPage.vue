@@ -1,4 +1,12 @@
 <template>
+  <div class="profile-section" @click="toggleDropdown">
+    <img src="../assets/defaut-profile-picture.jpg" alt="Admin Profile">
+    <span>admin</span>
+    <ul v-if="showDropdown" class="dropdown-menu">
+      <li @click="logout">Déconnexion</li>
+    </ul>
+  </div>
+
   <div>
     <nav>
       <ul class="category-list">
@@ -12,12 +20,11 @@
       </ul>
     </nav>
 
+
     <CalendarView v-if="selectedCategory === 'Agenda'" :events="eventsData" :config="configData" />
     <EnseignantsView v-if="selectedCategory === 'Enseignants'" />
     <EtudiantsView v-if="selectedCategory === 'Etudiants'" />
-    <SoutenancesView v-if="selectedCategory === 'Soutenances'"/>
-
-
+    <SoutenancesView v-if="selectedCategory === 'Soutenances'" />
   </div>
 </template>
 
@@ -26,7 +33,7 @@ import CalendarView from '@/views/CalendarView.vue';
 import EnseignantsView from '@/views/EnseignantsView.vue';
 import EtudiantsView from '@/views/EtudiantsView.vue';
 import SoutenancesView from '@/views/SoutenancesView.vue';
-
+import router from '@/router';
 
 export default {
   components: {
@@ -38,11 +45,18 @@ export default {
   data() {
     return {
       selectedCategory: 'Agenda',
+      showDropdown: false
     };
   },
   methods: {
     selectCategory(category) {
       this.selectedCategory = category;
+    },
+    logout() {
+      router.push('/');
+    },
+    toggleDropdown() {
+      this.showDropdown = !this.showDropdown;
     },
     selectedCategoryComponent() {
       switch (this.selectedCategory) {
@@ -60,7 +74,6 @@ export default {
     },
   },
 };
-
 </script>
 
 <style>
@@ -113,5 +126,46 @@ button {
 
 button:hover {
   background-color: #c0392b;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 20px;
+  cursor: pointer;
+  position: relative;
+}
+
+.profile-section img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.profile-section span {
+  font-weight: bold;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown-menu li {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-menu li:hover {
+  background-color: #f4f4f4;
 }
 </style>

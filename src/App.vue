@@ -34,6 +34,6 @@ img {
 }
 
 .small-logo {
-  width: 200px; /* Ajustez la taille selon vos besoins */
+  width: 209px; 
 }
 </style>

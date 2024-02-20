@@ -55,10 +55,10 @@ export default {
         formatDate(dateTime) {
             const date = new Date(dateTime);
             const day = date.getDate();
-            const month = ('0' + (date.getMonth() + 1)).slice(-2); // Ajoute un zéro au mois si nécessaire
+            const month = ('0' + (date.getMonth() + 1)).slice(-2); 
             const year = date.getFullYear();
-            const hours = ('0' + date.getHours()).slice(-2); // Ajoute un zéro à l'heure si nécessaire
-            const minutes = ('0' + date.getMinutes()).slice(-2); // Ajoute un zéro aux minutes si nécessaire
+            const hours = ('0' + date.getHours()).slice(-2); 
+            const minutes = ('0' + date.getMinutes()).slice(-2); 
             return `${day}/${month}/${year} ${hours}:${minutes}`;
         }
 

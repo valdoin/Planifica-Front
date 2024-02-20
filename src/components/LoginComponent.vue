@@ -44,10 +44,9 @@ export default {
         router.replace('/admin');
 
       } catch (error) {
-        // Gérer les erreurs d'authentification
+
         console.error('Erreur lors de la connexion', error);
 
-        // Afficher le message d'erreur
         this.errorMessage = 'Nom d\'utilisateur ou mot de passe incorrect.';
       }
     },
