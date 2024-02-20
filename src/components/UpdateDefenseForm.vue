@@ -95,9 +95,33 @@ export default {
     max-width: 300px;
 }
 
-input, select {
+input,
+select {
     width: 100%;
-    padding: 8px; 
+    padding: 8px;
+    border: 2px solid #000000;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+
+select:focus,
+input:focus {
+    outline: none;
+    border-color: #2ecc71;
+}
+
+
+
+option {
+    padding: 8px;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+option:hover {
+    background-color: #3498db;
+    color: white;
 }
 
 .green-button {

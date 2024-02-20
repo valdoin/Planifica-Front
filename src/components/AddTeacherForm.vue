@@ -66,6 +66,14 @@ export default {
 input {
   width: 100%;
   padding: 8px;
+  border: 2px solid #000000;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+input:focus {
+  outline: none;
+  border-color: #3498db;
 }
 
 .blue-button {

@@ -2,11 +2,14 @@
   <div>
     <button class="add-teacher-button" @click="toggleAddTeacherForm">Ajouter un enseignant</button>
 
+    <button class="import-teacher-button" @click="triggerFileInput">Importer un fichier CSV</button>
+
+    <input type="file" ref="fileInput" @change="handleFileUpload" style="display: none;" />
+
     <add-teacher-form v-if="isAddTeacherFormVisible && !selectedTeacher" @submit="handleAddTeacher" />
 
     <update-teacher-form v-if="isAddTeacherFormVisible && selectedTeacher" @submit="handleUpdateTeacher"
       :teacherData="selectedTeacher" buttonText="Modifier" />
-
 
     <teacher-list-component v-if="teachers.length > 0" :teachers="teachers" @deleteTeacher="handleDeleteTeacher"
       @editTeacher="editTeacher" />
@@ -24,7 +27,7 @@ export default {
   components: {
     AddTeacherForm,
     TeacherListComponent,
-    UpdateTeacherForm,
+    UpdateTeacherForm
   },
   data() {
     return {
@@ -51,9 +54,7 @@ export default {
     },
     async handleUpdateTeacher(teacherData) {
       try {
-        console.log(teacherData);
         const teacherId = this.selectedTeacher._id;
-        console.log(teacherId);
         await apiService.updateTeacher(teacherId, teacherData);
         this.getAllTeachers();
         console.log('Enseignant modifié avec succès');
@@ -85,6 +86,60 @@ export default {
         console.error('Erreur lors de la récupération des enseignants', error);
       }
     },
+    triggerFileInput() {
+      this.$refs.fileInput.click();
+    },
+    handleFileUpload(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const csv = e.target.result;
+          const formattedData = this.formatCSVData(csv);
+          this.addTeachersFromCSV(formattedData);
+        };
+        reader.readAsText(file);
+      }
+    },
+    formatCSVData(csv) {
+      const lines = csv.split('\n');
+      const headers = lines[0].split(';');
+      const formattedData = [];
+
+      for (let i = 1; i < lines.length; i++) {
+        const data = lines[i].split(';');
+        const teacher = {};
+
+        for (let j = 0; j < headers.length; j++) {
+          if (headers[j] === 'isProgrammer') {
+            teacher[headers[j]] = data[j] === 'true';
+          } else {
+            teacher[headers[j]] = data[j];
+          }
+        }
+
+        formattedData.push(teacher);
+      }
+
+      return formattedData;
+    },
+    async addTeachersFromCSV(data) {
+      try {
+        for (let i = 0; i < data.length; i++) {
+          try {
+            await apiService.createTeacher(data[i]);
+            console.log('Enseignant ajouté avec succès:', data[i]);
+          } catch (error) {
+            console.error('Erreur lors de l\'ajout de l\'enseignant:', error);
+          }
+        }
+      } finally {
+
+        this.getAllTeachers();
+      }
+    },
+
+
   },
   created() {
     this.getAllTeachers();
@@ -104,7 +159,21 @@ export default {
   transition: background-color 0.3s ease;
 }
 
-.add-teacher-button:hover {
+.import-teacher-button {
+  background-color: orange;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 10px;
+  /* Espacement entre les boutons */
+  transition: background-color 0.3s ease;
+}
+
+.add-teacher-button:hover,
+.import-teacher-button:hover {
   background-color: #2980b9;
 }
 </style>

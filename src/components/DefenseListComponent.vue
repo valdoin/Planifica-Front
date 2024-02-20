@@ -5,7 +5,7 @@
             <thead>
                 <tr>
                     <th>Date</th>
-                    <th>Classe</th>
+                    <th>Salle</th>
                     <th>Étudiant</th>
                     <th>Tuteur</th>
                     <th>Candide</th>

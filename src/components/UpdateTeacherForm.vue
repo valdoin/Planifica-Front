@@ -14,8 +14,8 @@
             </div>
 
             <div class="form-group">
-              <label for="isProgrammer">Programmeur ?</label>
-              <input type="checkbox" id="isProgrammer" v-model="newTeacherData.isProgrammer" />
+                <label for="isProgrammer">Programmeur ?</label>
+                <input type="checkbox" id="isProgrammer" v-model="newTeacherData.isProgrammer" />
             </div>
 
             <button class="green-button" type="submit">{{ buttonText }}</button>
@@ -71,6 +71,14 @@ export default {
 input {
     width: 100%;
     padding: 8px;
+    border: 2px solid #000000;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+input:focus {
+    outline: none;
+    border-color: #2ecc71;
 }
 
 .green-button {
