@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import LoginComponent from './components/LoginComponent.vue';
 import AdminPage from './components/AdminPage.vue';
-import DisponibiliteView from './views/DisponibiliteView.vue';
+import DisponibilitesEnseignantsView from './views/DisponibilitesEnseignantsView.vue';
+import DisponibilitesEtudiantsView from './views/DisponibilitesEtudiantsView.vue';
 
 const routes = [
   {
@@ -15,9 +16,14 @@ const routes = [
     component: AdminPage,
   },
   {
-    path: '/guest',
-    name:'guest',
-    component: DisponibiliteView,
+    path: '/teacherGuest',
+    name:'teacherGuest',
+    component: DisponibilitesEnseignantsView,
+  },
+  {
+    path: '/studentGuest',
+    name: 'studentGuest',
+    component: DisponibilitesEtudiantsView,
   }
 ];
 

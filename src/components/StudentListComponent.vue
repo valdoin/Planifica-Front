@@ -20,7 +20,12 @@
                     <td>{{ student.class }}</td>
                     <td>{{ student.mail }}</td>
                     <td>{{ student.tutor ? `${student.tutor.name} ${student.tutor.surname}` : 'Aucun tuteur' }}</td>
-                    <td>{{ student.disponibilities.length > 0 ? student.disponibilities : 'Pas renseignées' }}</td>
+                    <td>
+                        <ul v-if="student.availabilities.length > 0" class="availability-list">
+                            <li v-for="(availability, index) in student.availabilities" :key="index">{{ formatDate(availability) }}</li>
+                        </ul>
+                        <span v-else>Non renseignées</span>
+                    </td>
                     <td>
                         <button @click="editStudent(student)" class="edit-button">Modifier</button>
                         <button @click="deleteStudent(student._id)" class="delete-button">Supprimer</button>
@@ -46,6 +51,15 @@ export default {
         editStudent(student) {
             this.$emit('editStudent', student);
         },
+        formatDate(dateTime) {
+            const date = new Date(dateTime);
+            const formattedDate = `${this.formatNumber(date.getDate())}/${this.formatNumber(date.getMonth() + 1)}/${date.getFullYear()}`;
+            const formattedTime = `${this.formatNumber(date.getHours())}:${this.formatNumber(date.getMinutes())}`;
+            return `${formattedDate} ${formattedTime}`;
+        },
+        formatNumber(num) {
+            return num.toString().padStart(2, '0');
+        }
     },
 };
 </script>
@@ -102,5 +116,14 @@ td {
 
 .edit-button:hover {
     background-color: #27ae60;
+}
+
+.availability-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.availability-list li {
+    margin-bottom: 5px;
 }
 </style>

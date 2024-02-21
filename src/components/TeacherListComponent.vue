@@ -8,7 +8,7 @@
                     <th>Prénom</th>
                     <th>Email</th>
                     <th>Programmeur</th>
-                    <th>Disponibilités</th> <!-- Ajout de la colonne Disponibilités -->
+                    <th>Disponibilités</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -18,7 +18,12 @@
                     <td>{{ teacher.name }}</td>
                     <td>{{ teacher.mail }}</td>
                     <td>{{ teacher.isProgrammer ? 'Oui' : 'Non' }}</td>
-                    <td>{{ teacher.disponibilities.length > 0 ? teacher.disponibilities : 'Pas renseignées' }}</td> 
+                    <td>
+                        <ul v-if="teacher.availabilities.length > 0" class="availability-list">
+                            <li v-for="(availability, index) in teacher.availabilities" :key="index">{{ formatDate(availability) }}</li>
+                        </ul>
+                        <span v-else>Pas renseignées</span>
+                    </td>
                     <td>
                         <button @click="editTeacher(teacher)" class="edit-button">Modifier</button>
                         <button @click="deleteTeacher(teacher._id)" class="delete-button">Supprimer</button>
@@ -44,6 +49,15 @@ export default {
         editTeacher(teacher) {
             this.$emit('editTeacher', teacher);
         },
+        formatDate(dateTime) { // Méthode pour formater la date
+            const date = new Date(dateTime);
+            const day = ('0' + date.getDate()).slice(-2);
+            const month = ('0' + (date.getMonth() + 1)).slice(-2);
+            const year = date.getFullYear();
+            const hours = ('0' + date.getHours()).slice(-2);
+            const minutes = ('0' + date.getMinutes()).slice(-2);
+            return `${day}/${month}/${year} ${hours}:${minutes}`;
+        }
     },
 };
 </script>
@@ -100,5 +114,14 @@ td {
 
 .edit-button:hover {
     background-color: #27ae60;
+}
+
+.availability-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.availability-list li {
+    margin-bottom: 5px;
 }
 </style>

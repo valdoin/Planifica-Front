@@ -119,7 +119,7 @@ export default {
 
         formattedData.push(teacher);
       }
-
+      console.log(formattedData);
       return formattedData;
     },
     async addTeachersFromCSV(data) {

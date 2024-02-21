@@ -10,7 +10,7 @@
             </div>
 
             <div class="form-group">
-                <input type="email" v-model="newTeacherData.mail" placeholder="E-mail" />
+                <input type="email" class="mail-input" v-model="newTeacherData.mail" placeholder="E-mail" />
             </div>
 
             <div class="form-group">
@@ -79,6 +79,14 @@ input {
 input:focus {
     outline: none;
     border-color: #2ecc71;
+}
+
+.mail-input {
+  width: 100%;
+  padding: 8px;
+  border: 2px solid #000000;
+  border-radius: 5px;
+  box-sizing: border-box;
 }
 
 .green-button {

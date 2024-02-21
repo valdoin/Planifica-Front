@@ -14,7 +14,7 @@
       </div>
 
       <div class="form-group">
-        <input type="email" v-model="studentData.mail" required placeholder="E-mail" />
+        <input type="email" class="mail-input" v-model="studentData.mail" required placeholder="E-mail" />
       </div>
 
       <div class="form-group">
@@ -86,8 +86,7 @@ export default {
   max-width: 300px;
 }
 
-input,
-select {
+input, select {
   width: 100%;
   padding: 8px;
   border: 2px solid #000000;
@@ -96,13 +95,19 @@ select {
 }
 
 
-select:focus,
-input:focus {
+select:focus,input:focus {
   outline: none;
   border-color: #3498db;
 }
 
 
+.mail-input {
+  width: 100%;
+  padding: 8px;
+  border: 2px solid #000000;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
 
 option {
   padding: 8px;

@@ -1,5 +1,3 @@
-<!-- SoutenancesView.vue -->
-
 <template>
     <div>
         <button class="add-defense-button" @click="toggleAddDefenseForm">Ajouter une soutenance</button>
