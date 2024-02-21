@@ -10,13 +10,10 @@
   <div>
     <nav>
       <ul class="category-list">
-        <li @click="selectCategory('Agenda')" :class="{ 'selected-category': selectedCategory === 'Agenda' }">Agenda</li>
-        <li @click="selectCategory('Soutenances')" :class="{ 'selected-category': selectedCategory === 'Soutenances' }">
-          Soutenances</li>
-        <li @click="selectCategory('Enseignants')" :class="{ 'selected-category': selectedCategory === 'Enseignants' }">
-          Enseignants</li>
-        <li @click="selectCategory('Etudiants')" :class="{ 'selected-category': selectedCategory === 'Etudiants' }">
-          Etudiants</li>
+        <li @click="selectCategory('Agenda')" :class="{ 'selected-category1': selectedCategory === 'Agenda' }">Agenda</li>
+        <li @click="selectCategory('Soutenances')" :class="{ 'selected-category2': selectedCategory === 'Soutenances' }">Soutenances</li>
+        <li @click="selectCategory('Enseignants')" :class="{ 'selected-category1': selectedCategory === 'Enseignants' }">Enseignants</li>
+        <li @click="selectCategory('Etudiants')" :class="{ 'selected-category2': selectedCategory === 'Etudiants' }">Etudiants</li>
       </ul>
     </nav>
 
@@ -85,6 +82,14 @@ h1 {
   text-align: left !important;
 }
 
+.week-timeline__day.is-today .week-timeline__date{
+  background-color: #55B7BB !important;
+}
+
+.calendar-month__weekday.is-today .calendar-month__day-date{
+  background-color: #55B7BB !important;
+}
+
 .category-list {
   list-style: none;
   padding: 0;
@@ -104,12 +109,15 @@ h1 {
   border-radius: 5px;
 }
 
-.category-list li:hover {
-  color: #3498db;
+
+
+.selected-category1 {
+  background-color: #55B7BB;
+  color: #fff;
 }
 
-.selected-category {
-  background-color: #3498db;
+.selected-category2 {
+  background-color :#6AD1A1 ;
   color: #fff;
 }
 

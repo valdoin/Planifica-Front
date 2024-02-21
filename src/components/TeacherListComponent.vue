@@ -8,6 +8,7 @@
                     <th>Prénom</th>
                     <th>Email</th>
                     <th>Programmeur</th>
+                    <th>Disponibilités</th> <!-- Ajout de la colonne Disponibilités -->
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -16,7 +17,8 @@
                     <td>{{ teacher.surname }}</td>
                     <td>{{ teacher.name }}</td>
                     <td>{{ teacher.mail }}</td>
-                    <td>{{ teacher.isProgrammer ? 'Oui' : 'Non' }}</td> 
+                    <td>{{ teacher.isProgrammer ? 'Oui' : 'Non' }}</td>
+                    <td>{{ teacher.disponibilities.length > 0 ? teacher.disponibilities : 'Pas renseignées' }}</td> 
                     <td>
                         <button @click="editTeacher(teacher)" class="edit-button">Modifier</button>
                         <button @click="deleteTeacher(teacher._id)" class="delete-button">Supprimer</button>
@@ -57,7 +59,7 @@ table {
 }
 
 thead {
-    background-color: #3498db;
+    background-color: #55B7BB;
     color: white;
 }
 

@@ -73,7 +73,7 @@ table {
 }
 
 thead {
-    background-color: #3498db;
+    background-color: #6AD1A1;
     color: white;
 }
 

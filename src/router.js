@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import LoginComponent from './components/LoginComponent.vue';
 import AdminPage from './components/AdminPage.vue';
+import DisponibiliteView from './views/DisponibiliteView.vue';
 
 const routes = [
   {
@@ -13,6 +14,11 @@ const routes = [
     name : 'admin',
     component: AdminPage,
   },
+  {
+    path: '/guest',
+    name:'guest',
+    component: DisponibiliteView,
+  }
 ];
 
 const router = createRouter({

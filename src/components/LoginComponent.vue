@@ -57,7 +57,7 @@ export default {
 <style>
 .login-container {
   text-align: center;
-  margin-top: 50px;
+  margin-top: 20px;
 }
 
 form {
@@ -69,7 +69,10 @@ form {
   margin-bottom: 20px;
 }
 
-
+h1 {
+  color:black !important;
+  font-style: italic;
+}
 input {
   width: 100%;
   padding: 10px;

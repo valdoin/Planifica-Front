@@ -1,15 +1,20 @@
 <template>
     <div>
         <button class="add-student-button" @click="toggleAddStudentForm">Ajouter un étudiant</button>
-        <button class="import-student-button" @click="triggerFileInput">Importer un fichier CSV</button>
 
+        <button class="import-student-button" @click="triggerFileInput">Importation CSV</button>
         <input type="file" ref="fileInput" @change="handleFileUpload" style="display: none;" />
 
+        <button class="availability-collection-button" @click="confirmAvailabilityCollection">Collecte des
+            disponibilités</button>
+
         <add-student-form v-if="isAddStudentFormVisible" @studentAdded="handleStudentAdded" />
+
         <update-student-form v-if="isUpdateStudentFormVisible && selectedStudentId" @studentUpdated="handleStudentUpdated"
             :studentId="selectedStudentId" :buttonText="Modifier" key="update-student-form-key" />
 
-        <student-list-component v-if="students.length > 0" :students="students" @deleteStudent="handleDeleteStudent" @editStudent="editStudent" />
+        <student-list-component v-if="students.length > 0" :students="students" @deleteStudent="handleDeleteStudent"
+            @editStudent="editStudent" />
         <p v-else>Vous n'avez ajouté aucun étudiant pour le moment !</p>
     </div>
 </template>
@@ -32,7 +37,7 @@ export default {
             isUpdateStudentFormVisible: false,
             selectedStudentId: null,
             students: [],
-            teachers: [], 
+            teachers: [],
         };
     },
     methods: {
@@ -123,6 +128,7 @@ export default {
             return formattedData;
         },
 
+
         async addStudentsFromCSV(data) {
             try {
                 for (let i = 0; i < data.length; i++) {
@@ -140,14 +146,26 @@ export default {
                 console.error('Erreur lors de l\'ajout de l\'étudiant:', error);
             }
         },
-
-
         async getAllTeachers() {
             try {
                 const response = await apiService.getAllTeachers();
                 this.teachers = response.data;
             } catch (error) {
                 console.error('Erreur lors de la récupération des enseignants', error);
+            }
+        },
+        confirmAvailabilityCollection() {
+            if (confirm("Êtes-vous sûr de vouloir envoyer des e-mails pour collecter les disponibilités des étudiants ?")) {
+                this.sendAvailabilityCollectionEmails();
+            }
+        },
+        async sendAvailabilityCollectionEmails() {
+            try {
+                await apiService.sendMailToStudents();
+                alert('E-mails de collecte de disponibilités des étudiants envoyés avec succès !');
+            } catch (error) {
+                console.error('Erreur lors de l\'envoi des e-mails de collecte de disponibilités des étudiants', error);
+                alert('Une erreur est survenue lors de l\'envoi des e-mails de collecte de disponibilités des étudiants.');
             }
         },
     },
@@ -182,8 +200,26 @@ export default {
     transition: background-color 0.3s ease;
 }
 
-.add-student-button:hover,
-.import-student-button:hover {
+.add-student-button:hover {
     background-color: #2980b9;
 }
-</style>
+
+.import-student-button:hover {
+    background-color: rgb(228, 154, 15);
+}
+
+.availability-collection-button {
+    background-color: #8a2be2;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.availability-collection-button:hover {
+    background-color: #7a249e;
+}</style>

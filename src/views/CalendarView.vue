@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="calendar-container is-light-mode">
     <calendar-component :config="configData" :events="eventsData" />
   </div>
 </template>
@@ -73,5 +73,4 @@ export default {
 </script>
 
 <style scoped>
-/* Vos styles si nécessaire */
 </style>

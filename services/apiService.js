@@ -34,6 +34,9 @@ export default {
   deleteTeacher(teacherId) {
     return apiClient.delete(`/teachers/${teacherId}/delete`);
   },
+  sendMailToTeachers() {
+    return apiClient.post('/teachers/send-mails');
+  },
 
   // Étudiants
   createStudent(studentData) {
@@ -50,6 +53,9 @@ export default {
   },
   deleteStudent(studentId) {
     return apiClient.delete(`/students/${studentId}/delete`);
+  },
+  sendMailToStudents() {
+    return apiClient.post('/students/send-mails');
   },
 
   // Soutenances

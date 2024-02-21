@@ -2,17 +2,16 @@
   <div>
     <button class="add-teacher-button" @click="toggleAddTeacherForm">Ajouter un enseignant</button>
 
-    <button class="import-teacher-button" @click="triggerFileInput">Importer un fichier CSV</button>
-
+    <button class="import-teacher-button" @click="triggerFileInput">Importation CSV</button>
     <input type="file" ref="fileInput" @change="handleFileUpload" style="display: none;" />
+
+    <button class="availability-collection-button" @click="confirmAvailabilityCollection">Collecte des disponibilités</button>
 
     <add-teacher-form v-if="isAddTeacherFormVisible && !selectedTeacher" @submit="handleAddTeacher" />
 
-    <update-teacher-form v-if="isAddTeacherFormVisible && selectedTeacher" @submit="handleUpdateTeacher"
-      :teacherData="selectedTeacher" buttonText="Modifier" />
+    <update-teacher-form v-if="isAddTeacherFormVisible && selectedTeacher" @submit="handleUpdateTeacher" :teacherData="selectedTeacher" buttonText="Modifier" />
 
-    <teacher-list-component v-if="teachers.length > 0" :teachers="teachers" @deleteTeacher="handleDeleteTeacher"
-      @editTeacher="editTeacher" />
+    <teacher-list-component v-if="teachers.length > 0" :teachers="teachers" @deleteTeacher="handleDeleteTeacher" @editTeacher="editTeacher" />
     <p v-else>Vous n'avez ajouté aucun enseignant pour le moment !</p>
   </div>
 </template>
@@ -138,6 +137,20 @@ export default {
         this.getAllTeachers();
       }
     },
+    confirmAvailabilityCollection() {
+      if (confirm("Êtes-vous sûr de vouloir envoyer des e-mails pour collecter les disponibilités des enseignants ?")) {
+        this.sendAvailabilityCollectionEmails();
+      }
+    },
+    async sendAvailabilityCollectionEmails() {
+      try {
+        await apiService.sendMailToTeachers();
+        alert('E-mails de collecte de disponibilités envoyés avec succès !');
+      } catch (error) {
+        console.error('Erreur lors de l\'envoi des e-mails de collecte de disponibilités', error);
+        alert('Une erreur est survenue lors de l\'envoi des e-mails de collecte de disponibilités.');
+      }
+    },
 
 
   },
@@ -168,12 +181,30 @@ export default {
   cursor: pointer;
   font-size: 16px;
   margin-left: 10px;
-  /* Espacement entre les boutons */
   transition: background-color 0.3s ease;
 }
 
-.add-teacher-button:hover,
-.import-teacher-button:hover {
+.add-teacher-button:hover {
   background-color: #2980b9;
+}
+
+.import-teacher-button:hover {
+  background-color: rgb(228, 154, 15);
+}
+
+.availability-collection-button {
+  background-color: #8a2be2;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.availability-collection-button:hover {
+  background-color: #7a249e;
 }
 </style>
