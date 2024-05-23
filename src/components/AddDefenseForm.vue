@@ -36,6 +36,15 @@
                 </select>
             </div>
 
+            <div class="form-group">
+                <select v-model="formData.group" required>
+                    <option :value="null" disabled selected hidden>Choisissez un groupe</option>
+                    <option v-for="group in groups" :key="group._id" :value="group._id">
+                        {{ group.name }}
+                    </option>
+                </select>
+            </div>
+
             <button class="blue-button" type="submit">Ajouter</button>
         </form>
     </div>
@@ -51,6 +60,7 @@ export default {
                 student: null,
                 tutor: null,
                 candid: null,
+                group: null,
             },
         };
     },
@@ -66,6 +76,7 @@ export default {
                 student: null,
                 tutor: null,
                 candid: null,
+                group: null,
             };
         },
     },
@@ -75,6 +86,10 @@ export default {
             default: () => [],
         },
         teachers: {
+            type: Array,
+            default: () => [],
+        },
+        groups: {
             type: Array,
             default: () => [],
         },

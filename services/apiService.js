@@ -74,4 +74,21 @@ export default {
   deleteDefense(defenseId) {
     return apiClient.delete(`/defenses/${defenseId}/delete`);
   },
+
+  // Groupes
+  createGroup(groupData) {
+    return apiClient.post('/groups/create', groupData);
+  },
+  getAllGroups() {
+    return apiClient.get('/groups/list');
+  },
+  getGroupById(groupId) {
+    return apiClient.get(`/groups/${groupId}/details`);
+  },
+  updateGroup(groupId, groupData) {
+    return apiClient.post(`/groups/${groupId}/update`, groupData);
+  },
+  deleteGroup(groupId) {
+    return apiClient.delete(`/groups/${groupId}/delete`);
+  },
 };

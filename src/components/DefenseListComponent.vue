@@ -92,7 +92,7 @@ td {
     border-radius: 3px;
     cursor: pointer;
     font-size: 12px;
-    margin-left: 10px;
+    margin-left: 5px;
     transition: background-color 0.3s ease;
 }
 

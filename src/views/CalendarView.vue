@@ -39,19 +39,24 @@ export default {
     async getAllDefenses() {
       try {
         const response = await apiService.getAllDefenses();
-        this.eventsData = response.data.map((defense, index) => ({
-          title: defense.classroom,
-          description: `Etudiant : ${defense.student.name} ${defense.student.surname} \nJury : ${defense.tutor.name} ${defense.tutor.surname}, ${defense.candid.name} ${defense.candid.surname}`,
-          time: {
-            start: this.formatDateTime(defense.date),
-            end: this.formatDateTime(this.addHour(defense.date)),
-          },
-          color: this.colors[index % this.colors.length],
-        }));
+        this.eventsData = response.data.map((defense, index) => {
+          const groupDuration = defense.group.length || 0;
+
+          return {
+            title: defense.classroom,
+            description: `Groupe : ${defense.group.name}, Etudiant : ${defense.student.name} ${defense.student.surname}, Jury : ${defense.tutor.name} ${defense.tutor.surname}, ${defense.candid.name} ${defense.candid.surname}`,
+            time: {
+              start: this.formatDateTime(defense.date),
+              end: this.formatDateTime(this.addTime(defense.date, groupDuration)),
+            },
+            color: this.colors[index % this.colors.length],
+          };
+        });
       } catch (error) {
         console.error('Erreur lors de la récupération des soutenances', error);
       }
     },
+
     formatDateTime(dateTime) {
       const date = new Date(dateTime);
       const year = date.getFullYear();
@@ -87,9 +92,9 @@ export default {
     formatNumber(num) {
       return num.toString().padStart(2, '0');
     },
-    addHour(dateTime) {
+    addTime(dateTime, groupDuration) {
       const date = new Date(dateTime);
-      date.setHours(date.getHours() + 1);
+      date.setMinutes(date.getMinutes() + groupDuration);
       return date.toISOString();
     },
     exportICal() {
@@ -126,6 +131,6 @@ button {
 }
 
 button:hover {
-    background-color: #6AD1A1;
+  background-color: #6AD1A1;
 }
 </style>
