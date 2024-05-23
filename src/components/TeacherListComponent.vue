@@ -7,7 +7,7 @@
                     <th>Nom</th>
                     <th>Prénom</th>
                     <th>Email</th>
-                    <th>Programmeur</th>
+                    <th>Informaticien</th>
                     <th>Disponibilités</th>
                     <th>Actions</th>
                 </tr>

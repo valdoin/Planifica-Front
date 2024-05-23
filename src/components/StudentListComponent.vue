@@ -9,7 +9,7 @@
                     <th>Classe</th>
                     <th>Email</th>
                     <th>Tuteur</th>
-                    <th>Disponibilités</th> <!-- Ajout de la colonne Disponibilités -->
+                    <th>Disponibilités</th> 
                     <th>Actions</th>
                 </tr>
             </thead>

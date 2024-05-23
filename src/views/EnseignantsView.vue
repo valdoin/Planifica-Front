@@ -2,7 +2,7 @@
   <div>
     <button class="add-teacher-button" @click="toggleAddTeacherForm">Ajouter un enseignant</button>
 
-    <button class="import-teacher-button" @click="triggerFileInput">Importation CSV</button>
+    <button class="import-teacher-button" @click="triggerFileInput">Importation CSV ⬆️</button>
     <input type="file" ref="fileInput" @change="handleFileUpload" style="display: none;" />
 
     <button class="availability-collection-button" @click="confirmAvailabilityCollection">Collecte des disponibilités</button>
